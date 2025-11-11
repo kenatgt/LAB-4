@@ -20,7 +20,7 @@ public class ControladorContenido {
 
     public ControladorContenido() {
         contenidos = new ArrayList<>();
-        buscador = new Buscador();
+        Buscador buscador = new Buscador(contenidos);
         reporte = new Reporte();
     }
 

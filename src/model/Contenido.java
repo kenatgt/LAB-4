@@ -23,15 +23,14 @@ public class Contenido {
     public void eliminar() { /* base mínima */ }
 
     // Getters y Setters 
-    int _getId() { return id; }
-    String _getTitulo() { return titulo; }
-    String _getDescripcion() { return descripcion; }
-    Categoria _getCategoria() { return categoria; }
-    Usuario _getAutor() { return autor; }
-    String _getTipoSimple() { return this.getClass().getSimpleName(); }
+    public int _getId() { return id; }
+    public String _getTitulo() { return titulo; }
+    public String _getDescripcion() { return descripcion; }
+    public Categoria _getCategoria() { return categoria; }
+    public Usuario _getAutor() { return autor; }
+    public String _getTipoSimple() { return this.getClass().getSimpleName(); }
 
 
-    
 }
 
 
