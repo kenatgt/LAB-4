@@ -1,6 +1,4 @@
-
-
-
+package model;
 
 public class Imagen extends Contenido implements Contenido.Publicable, Contenido.Visualizable {
 

@@ -1,5 +1,4 @@
-
-
+package model;
 
 public class Video extends Contenido implements Contenido.Publicable, Contenido.Visualizable {
 

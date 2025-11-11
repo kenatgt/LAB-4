@@ -1,4 +1,4 @@
-
+package model;
 
 public class Articulo extends Contenido implements Contenido.Publicable, Contenido.Visualizable {
     // Atributos 
