@@ -6,5 +6,8 @@ package model;
  * cómo se muestra su contenido al usuario.
  */
 public interface Visualizable {
-    void visualizar();
+    /**
+     * Devuelve una representación amigable para mostrar el contenido.
+     */
+    String visualizar();
 }

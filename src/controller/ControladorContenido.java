@@ -2,68 +2,76 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
-import model.Contenido;
-import model.Categoria;
-import model.Reporte;
 import model.Buscador;
+import model.Categoria;
+import model.Contenido;
+import model.Reporte;
 
-/**
- * Controlador que gestiona la lógica relacionada con los contenidos.
- * Se comunica con las clases del modelo y con la vista (VistaCMS).
- */
 public class ControladorContenido {
 
-    private List<Contenido> contenidos;
-    private Buscador buscador;
-    private Reporte reporte;
+    private final List<Contenido> contenidos;
+    private final Buscador buscador;
+    private final Reporte reporte;
 
     public ControladorContenido() {
-        contenidos = new ArrayList<>();
-        Buscador buscador = new Buscador(contenidos);
-        reporte = new Reporte();
+        this.contenidos = new ArrayList<>();
+        this.buscador = new Buscador(contenidos);
+        this.reporte = new Reporte();
     }
 
-    // ====== Métodos principales ======
+    public String gestionarContenido(Contenido contenido, String accion) {
+        if (contenido == null) {
+            return "Contenido no válido.";
+        }
+        if (accion == null || accion.isBlank()) {
+            return "Acción no reconocida.";
+        }
 
-    public void gestionarContenido(Contenido c, String accion) {
-        switch (accion.toLowerCase()) {
+        String comando = accion.trim().toLowerCase();
+        switch (comando) {
             case "crear":
-                c.crear();
-                contenidos.add(c);
-                System.out.println("Contenido agregado: " + c._getTitulo());
-                break;
+                if (contenidos.contains(contenido)) {
+                    return "El contenido ya está registrado: " + contenido._getTitulo();
+                }
+                contenido.crear();
+                contenidos.add(contenido);
+                return "Contenido agregado: " + contenido._getTitulo();
             case "editar":
-                c.editar();
-                System.out.println("Contenido editado: " + c._getTitulo());
-                break;
+                if (!contenidos.contains(contenido)) {
+                    return "No se puede editar un contenido no registrado: " + contenido._getTitulo();
+                }
+                contenido.editar();
+                return "Contenido editado: " + contenido._getTitulo();
             case "eliminar":
-                c.eliminar();
-                contenidos.remove(c);
-                System.out.println("Contenido eliminado: " + c._getTitulo());
-                break;
+                if (!contenidos.contains(contenido)) {
+                    return "No se puede eliminar un contenido no registrado: " + contenido._getTitulo();
+                }
+                contenido.eliminar();
+                contenidos.remove(contenido);
+                return "Contenido eliminado: " + contenido._getTitulo();
             default:
-                System.out.println("Acción no reconocida: " + accion);
-                break;
+                return "Acción no reconocida: " + accion;
         }
     }
 
-    public void filtrarContenido(String tipo, Categoria cat) {
-        System.out.println("Filtrando contenidos...");
+    public List<Contenido> filtrarContenido(String tipo, Categoria categoria) {
         List<Contenido> filtrados = buscador.buscarPorTipo(tipo);
-        filtrados.retainAll(buscador.buscarPorCategoria(cat));
-
-        for (Contenido c : filtrados) {
-            System.out.println(" - " + c._getTitulo() + " (" + c._getTipoSimple() + ")");
+        if (categoria == null) {
+            return filtrados;
         }
+        return filtrados.stream()
+                .filter(c -> Objects.equals(c._getCategoria(), categoria))
+                .collect(Collectors.toList());
     }
 
-    public void generarReporte() {
-        reporte.generarResumen();
+    public String generarReporte() {
+        return reporte.generarResumen(contenidos);
     }
 
-    // Getters y utilidades
     public List<Contenido> getContenidos() {
-        return contenidos;
+        return new ArrayList<>(contenidos);
     }
 }

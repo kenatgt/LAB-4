@@ -11,13 +11,14 @@ public class Imagen extends Contenido implements Publicable, Visualizable {
     }
 
     @Override
-    public void publicar() {
-        System.out.println("Publicando imagen: " + _getTitulo() + " en formato " + formato);
+    public String publicar() {
+        marcarComoPublicado();
+        return "Imagen publicada: " + _getTitulo() + " en formato " + formato;
     }
 
     @Override
-    public void visualizar() {
-        System.out.println("Mostrando imagen: " + _getTitulo() + " (" + resolucion + ")");
+    public String visualizar() {
+        return "Mostrando imagen: " + _getTitulo() + " (" + resolucion + ")";
     }
 
     public String getResolucion() { return resolucion; }

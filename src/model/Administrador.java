@@ -8,11 +8,17 @@ public class Administrador extends Usuario {
     }
 
     // Métodos
-    public void publicarContenido(Contenido c) {
-        System.out.println("El administrador publicó el contenido: " + c._getTitulo());
+    public String publicarContenido(Contenido c) {
+        if (c == null) {
+            return _getNombre() + " no puede publicar un contenido nulo.";
+        }
+        return _getNombre() + " publicó el contenido: " + c._getTitulo();
     }
 
-    public void eliminarContenido(Contenido c) {
-        System.out.println("El administrador eliminó el contenido: " + c._getTitulo());
+    public String eliminarContenido(Contenido c) {
+        if (c == null) {
+            return _getNombre() + " no puede eliminar un contenido nulo.";
+        }
+        return _getNombre() + " eliminó el contenido: " + c._getTitulo();
     }
 }

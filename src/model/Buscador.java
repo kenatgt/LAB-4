@@ -1,6 +1,9 @@
 package model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -15,17 +18,27 @@ public class Buscador {
 
     // métodos
     public List<Contenido> buscarPorTipo(String tipo) {
-        if (tipo == null) return List.of();
+        if (fuente.isEmpty()) {
+            return List.of();
+        }
+        if (tipo == null || tipo.isBlank()) {
+            return new ArrayList<>(fuente);
+        }
         String t = tipo.trim().toLowerCase();
         return fuente.stream()
                 .filter(c -> c._getTipoSimple().toLowerCase().equals(t))
-                .collect(Collectors.toUnmodifiableList());
+                .collect(Collectors.toList());
     }
 
     public List<Contenido> buscarPorCategoria(Categoria cat) {
-        if (cat == null) return List.of();
+        if (fuente.isEmpty()) {
+            return List.of();
+        }
+        if (cat == null) {
+            return new ArrayList<>(fuente);
+        }
         return fuente.stream()
                 .filter(c -> Objects.equals(c._getCategoria(), cat))
-                .collect(Collectors.toUnmodifiableList());
+                .collect(Collectors.toList());
     }
 }

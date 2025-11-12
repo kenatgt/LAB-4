@@ -5,5 +5,8 @@ package model;
  * cómo se publica su contenido.
  */
 public interface Publicable {
-    void publicar();
+    /**
+     * Indica el resultado de publicar el contenido.
+     */
+    String publicar();
 }

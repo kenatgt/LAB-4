@@ -10,18 +10,21 @@ public class ControladorUsuario {
 
     private Usuario usuarioActivo;
 
-    public void login(Usuario usuario) {
-        usuario.iniciarSesion();
+    public String login(Usuario usuario) {
+        if (usuario == null) {
+            return "No se puede iniciar sesión sin un usuario.";
+        }
         usuarioActivo = usuario;
+        return usuario.iniciarSesion();
     }
 
-    public void logout() {
-        if (usuarioActivo != null) {
-            usuarioActivo.cerrarSesion();
-            usuarioActivo = null;
-        } else {
-            System.out.println("No hay sesión activa.");
+    public String logout() {
+        if (usuarioActivo == null) {
+            return "No hay sesión activa.";
         }
+        String mensaje = usuarioActivo.cerrarSesion();
+        usuarioActivo = null;
+        return mensaje;
     }
 
     public Usuario getUsuarioActivo() {

@@ -2,28 +2,34 @@ package model;
 
 public class Usuario {
 
-    // Atributos
-    private String nombre;
-    private String email;
+    private final String nombre;
+    private final String email;
+    private boolean sesionActiva;
 
-    // Constructor
     public Usuario(String nombre, String email) {
         this.nombre = nombre;
         this.email = email;
     }
 
-    // Métodos
-    public void iniciarSesion() {
-        System.out.println(nombre + " ha iniciado sesión.");
+    public String iniciarSesion() {
+        if (sesionActiva) {
+            return nombre + " ya tiene una sesión activa.";
+        }
+        sesionActiva = true;
+        return nombre + " ha iniciado sesión.";
     }
 
-    public void cerrarSesion() {
-        System.out.println(nombre + " ha cerrado sesión.");
+    public String cerrarSesion() {
+        if (!sesionActiva) {
+            return nombre + " no tiene una sesión activa.";
+        }
+        sesionActiva = false;
+        return nombre + " ha cerrado sesión.";
     }
 
-    // Getters
     public String _getNombre() { return nombre; }
     public String _getEmail() { return email; }
+    public boolean tieneSesionActiva() { return sesionActiva; }
 
     @Override
     public String toString() {

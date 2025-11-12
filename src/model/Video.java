@@ -15,13 +15,14 @@ public class Video extends Contenido implements Publicable, Visualizable {
 
     // Implementaciones de las interfaces
     @Override
-    public void publicar() {
-        System.out.println("Publicando video: " + _getTitulo() + " en " + url);
+    public String publicar() {
+        marcarComoPublicado();
+        return "Video publicado: " + _getTitulo() + " en " + url;
     }
 
     @Override
-    public void visualizar() {
-        System.out.println("Reproduciendo video: " + _getTitulo() + " (" + duracion + " segundos)");
+    public String visualizar() {
+        return "Reproduciendo video: " + _getTitulo() + " (" + duracion + " segundos)";
     }
 
     // Getters

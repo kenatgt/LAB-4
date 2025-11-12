@@ -8,11 +8,17 @@ public class Editor extends Usuario {
     }
 
     // Métodos
-    public void crearContenido(Contenido c) {
-        System.out.println("El editor creó el contenido: " + c._getTitulo());
+    public String crearContenido(Contenido c) {
+        if (c == null) {
+            return _getNombre() + " no puede crear un contenido nulo.";
+        }
+        return _getNombre() + " creó el contenido: " + c._getTitulo();
     }
 
-    public void editarContenido(Contenido c) {
-        System.out.println("El editor editó el contenido: " + c._getTitulo());
+    public String editarContenido(Contenido c) {
+        if (c == null) {
+            return _getNombre() + " no puede editar un contenido nulo.";
+        }
+        return _getNombre() + " editó el contenido: " + c._getTitulo();
     }
 }

@@ -1,7 +1,7 @@
 package model;
 
 public class Articulo extends Contenido implements Publicable, Visualizable {
-    private String texto;
+    private final String texto;
 
     public Articulo(int id, String titulo, String descripcion, Categoria categoria, Usuario autor, String texto) {
         super(id, titulo, descripcion, categoria, autor);
@@ -9,17 +9,15 @@ public class Articulo extends Contenido implements Publicable, Visualizable {
     }
 
     @Override
-    public void publicar() {
-        System.out.println("Publicando artículo: " + _getTitulo());
+    public String publicar() {
+        marcarComoPublicado();
+        return "Artículo publicado: " + _getTitulo();
     }
 
     @Override
-    public void visualizar() {
-        System.out.println("Leyendo artículo: " + _getTitulo());
-        System.out.println(texto);
+    public String visualizar() {
+        return "Leyendo artículo: " + _getTitulo() + System.lineSeparator() + texto;
     }
 
-    public String getTexto() {
-        return texto;
-    }
+    public String getTexto() { return texto; }
 }
